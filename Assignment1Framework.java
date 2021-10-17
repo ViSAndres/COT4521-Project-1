@@ -13,12 +13,12 @@ public class Assignment1Framework
         //Defining the geometric objects that represent the problem data
         RectPolygon[] polygons = new RectPolygon[3];
         
-        Point p = new Point(5, 6);
-        Point q = new Point(10, 370);
-        RectPolygon turnpikePolygon  = new RectPolygon();
-        turnpikePolygon.addVertex(p);
-        turnpikePolygon.addVertex(q);
-        polygons[0] = turnpikePolygon; //Florida Turnpike
+        RectPolygon pg6  = new RectPolygon();
+        pg6.addVertex(new Point(267,44));
+        pg6.addVertex(new Point(295,44));
+        pg6.addVertex(new Point(295,80));
+        pg6.addVertex(new Point(267,80));
+        polygons[0] = pg6; //Florida Turnpike
         
         // p = new Point(10, 13);
         // q = new Point(420, 26);
