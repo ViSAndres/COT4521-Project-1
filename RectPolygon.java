@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 
 /**
@@ -18,6 +17,9 @@ public class RectPolygon extends GeometricObject
      */
     RectPolygon()
     {
+        size = 100;
+        vertexList = new Point[size];
+        vertNumber = 0;
     }
 
     /**
@@ -29,6 +31,8 @@ public class RectPolygon extends GeometricObject
      */
     public void addVertex(Point v)
     {
+        vertexList[vertNumber] = v;
+        vertNumber++;
     }
 
     /**
@@ -38,7 +42,20 @@ public class RectPolygon extends GeometricObject
      */
     public double area()
     {
-        return -1;
+        if(vertNumber <4) return Double.NaN;
+        double sum1 = 0.0, sum2 = 0.0;
+        Point v1, v2;
+        for (int i = 0; i < vertNumber; i++) {
+            v1 = vertexList[i];
+            v2 = vertexList[(i + 1) % vertNumber];
+
+            sum1 += v1.getX() * v2.getY();
+            sum2 += v2.getX() * v1.getY();
+
+        }
+        //Shoelace Formula to calculate the area.
+        double area = 0.5 * Math.abs(sum1 - sum2);
+        return area;
     }
 
     /**
@@ -59,6 +76,18 @@ public class RectPolygon extends GeometricObject
     @Override
     public void draw(Graphics g)
     {
+        int[] xCoord = new int[vertNumber];
+        int[] yCoord = new int[vertNumber];
+
+        for(int i = 0; i < vertNumber; i++) {
+            xCoord[i] = (int) vertexList[i].getX();
+        }
+        for(int i = 0; i < vertNumber; i++) {
+            yCoord[i] = (int) vertexList[i].getY();
+        }
+
+        //Shade and draw Polygon
+       g.fillPolygon(xCoord, yCoord, vertNumber);
     }
 
     /**
@@ -68,7 +97,7 @@ public class RectPolygon extends GeometricObject
      */
     public int getNumberOfVertices()
     {
-        return -1;
+        return vertexList.length;
     }
 
     /**
@@ -78,7 +107,14 @@ public class RectPolygon extends GeometricObject
      */
     public double greatestX()
     {
-        return Double.NaN;
+        double currentGreatestX = vertexList[0].getX();
+
+        for (Point vertex : vertexList) {
+            if (vertex.getX() > currentGreatestX) {
+                currentGreatestX = vertex.getX();
+            }
+        }
+        return currentGreatestX;
     }
 
     /**
@@ -88,18 +124,34 @@ public class RectPolygon extends GeometricObject
      */
     public double greatestY()
     {
-        return Double.NaN;
+        double currentGreatestY = vertexList[0].getY();
+
+        for (Point vertex : vertexList) {
+            if (vertex.getY() > currentGreatestY) {
+                currentGreatestY = vertex.getY();
+            }
+        }
+        return currentGreatestY;
     }
 
     /**
      * Determines if given point is contained in this polygon.
      *
-     * @param p given point
+     * @param point given point
      * @return true if p is on the boundary or the interior of this polygon.
      */
-    public boolean isPointInRectPolygon(Point p)
+    public boolean isPointInRectPolygon(Point point)
     {
-        return false;
+     int i;
+     int j;
+     boolean result = false;
+     for (i = 0, j = vertexList.length - 1; i < vertexList.length; j = i++) {
+        if ((vertexList[i].getY() > point.getY()) != (vertexList[j].getY() > point.getY()) &&
+            (point.getX() < (vertexList[j].getX() - vertexList[i].getX()) * (point.getY() - vertexList[i].getY()) / (vertexList[j].getY()-vertexList[i].getY()) + vertexList[i].getX())) {
+          result = !result;
+         }
+      }
+        return result;
     }
 
     /**
@@ -109,7 +161,14 @@ public class RectPolygon extends GeometricObject
      */
     public double smallestX()
     {
-        return Double.NaN;
+        double currentsmallestX = vertexList[0].getX();
+
+        for (Point vertex : vertexList) {
+            if (vertex.getX() < currentsmallestX) {
+                currentsmallestX = vertex.getX();
+            }
+        }
+        return currentsmallestX;
     }
 
     /**
@@ -119,7 +178,14 @@ public class RectPolygon extends GeometricObject
      */
     public double smallestY()
     {
-        return Double.NaN;
+        double currentsmallestY = vertexList[0].getY();
+
+        for (Point vertex : vertexList) {
+            if (vertex.getY() < currentsmallestY) {
+                currentsmallestY = vertex.getY();
+            }
+        }
+        return currentsmallestY;
     }
 
     /**
@@ -130,7 +196,10 @@ public class RectPolygon extends GeometricObject
     @Override
     public String toString()
     {
-        return "";
+        String str = "Polygon " + super.toString() + "\n";
+        str += vertexList;
+
+        return str;
     }
 
     /**
@@ -140,5 +209,8 @@ public class RectPolygon extends GeometricObject
      */
     public void translate(Vector v)
     {
+        for (Point vertex : vertexList) {
+            vertex.translate(v);
+        }
     }
 }

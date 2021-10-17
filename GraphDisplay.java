@@ -54,7 +54,7 @@ public class GraphDisplay extends JPanel implements MouseMotionListener
         int x = e.getPoint().x;
         int y = e.getPoint().y;
         Point p = new Point(e.getPoint().x, e.getPoint().y);
-        int loc = Algorithms.isPointContainedIn(gArray, p);
+        int loc = Algorithms.isPointInPolygon(gArray, p);
         
         switch (loc)
         {
