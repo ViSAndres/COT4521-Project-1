@@ -1,4 +1,4 @@
-
+// Author: Carlos Andres Neira  5676297
 import java.awt.*;
 
 abstract public class GeometricObject

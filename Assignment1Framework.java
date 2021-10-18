@@ -1,4 +1,4 @@
-
+// Author: Carlos Andres Neira  5676297
 import javax.swing.*;
 
 public class Assignment1Framework

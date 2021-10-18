@@ -1,3 +1,4 @@
+// Author: Carlos Andres Neira  5676297
 import javax.swing.*;
 
 public class FrameDisplay extends JFrame

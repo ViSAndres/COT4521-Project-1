@@ -1,4 +1,4 @@
-
+// Author: Carlos Andres Neira  5676297
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseMotionListener;
