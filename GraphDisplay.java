@@ -59,14 +59,20 @@ public class GraphDisplay extends JPanel implements MouseMotionListener
         switch (loc)
         {
             case 0:
-                description = "Florida Turnpike";
+                description = "PG6";
                 break;
             case 1:
-                description = "SW 8th St.";
+                description = "Green Library";
                 break;
             case 2:
-                description = "SW 107 Ave.";
+                description = "Football Field";
                 break;
+            case 3:
+                description = "DM";
+                break; 
+            case 4:
+                description = "AHC5";
+                break;   
             default:
                 description = "";
                 break;

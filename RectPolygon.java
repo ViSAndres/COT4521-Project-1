@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  * This class represents a rectilinear polygon with sides parallel to the axis;
@@ -17,7 +18,7 @@ public class RectPolygon extends GeometricObject
      */
     RectPolygon()
     {
-        size = 100;
+        size =100;
         vertexList = new Point[size];
         vertNumber = 0;
     }
@@ -145,11 +146,19 @@ public class RectPolygon extends GeometricObject
      int i;
      int j;
      boolean result = false;
-     for (i = 0, j = vertexList.length - 1; i < vertexList.length; j = i++) {
-        if ((vertexList[i].getY() > point.getY()) != (vertexList[j].getY() > point.getY()) &&
-            (point.getX() < (vertexList[j].getX() - vertexList[i].getX()) * (point.getY() - vertexList[i].getY()) / (vertexList[j].getY()-vertexList[i].getY()) + vertexList[i].getX())) {
-          result = !result;
-         }
+     ArrayList<Point> trimmedVertexList = new ArrayList<Point>();
+     for(Point p : vertexList) {
+        if(p != null) {
+            trimmedVertexList.add(p);
+        }
+     }
+     for (i = 0, j = trimmedVertexList.size() - 1; i < trimmedVertexList.size(); j = i++) {
+        if (trimmedVertexList.get(i) != null){
+            if ((trimmedVertexList.get(i).getY() > point.getY()) != (trimmedVertexList.get(j).getY() > point.getY()) &&
+                (point.getX() < (trimmedVertexList.get(j).getX() - trimmedVertexList.get(i).getX()) * (point.getY() - trimmedVertexList.get(i).getY()) / (trimmedVertexList.get(j).getY()-trimmedVertexList.get(i).getY()) + trimmedVertexList.get(i).getX())) {
+            result = !result;
+            }
+        }
       }
         return result;
     }
